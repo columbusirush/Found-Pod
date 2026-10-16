@@ -3,468 +3,910 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-  <meta name="theme-color" content="#101010">
-  <meta name="description" content="Found Podcast — a space for thought and self-discovery. Explore poetry, reflections, honest conversations, and the search for meaning.">
-
-  <title>Found Podcast | A Space for Thought</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#0d0d0d">
+  <meta name="description" content="Found Podcast — a space for thought, poetry, self-discovery, and the human experience. Observe. Question. Unlearn. Become.">
+  <title>Found Podcast — The Observer's Journal</title>
 
   <style>
     :root {
-      --background: #101010;
-      --surface: #181818;
-      --text: #f2f0eb;
-      --muted: #b5b1aa;
-      --border: #33312e;
-      --accent: #d2b48c;
+      --bg: #0d0d0d;
+      --panel: #151515;
+      --panel2: #1c1a17;
+      --text: #eee9df;
+      --muted: #aaa49a;
+      --gold: #c7a779;
+      --border: #34302a;
+      --serif: Georgia, "Times New Roman", serif;
+      --sans: Arial, Helvetica, sans-serif;
     }
 
-    * {
-      box-sizing: border-box;
-    }
+    * { box-sizing: border-box; }
 
     html {
       scroll-behavior: smooth;
-      scroll-padding-top: 85px;
+      scroll-padding-top: 100px;
     }
 
     body {
       margin: 0;
-      background: var(--background);
+      background: var(--bg);
       color: var(--text);
-      font-family: Georgia, "Times New Roman", serif;
-      line-height: 1.8;
+      font-family: var(--serif);
+      line-height: 1.85;
+      overflow-wrap: anywhere;
     }
 
-    a {
-      color: var(--accent);
+    a { color: var(--gold); }
+
+    button, a { -webkit-tap-highlight-color: transparent; }
+
+    button, input, textarea { font: inherit; }
+
+    button:focus-visible, a:focus-visible {
+      outline: 2px solid var(--gold);
+      outline-offset: 4px;
     }
 
-    a:focus-visible {
-      outline: 2px solid var(--accent);
-      outline-offset: 5px;
+    .wrap {
+      width: min(1060px, 88%);
+      margin: auto;
     }
 
-    .container {
-      width: min(1100px, 84%);
-      margin-inline: auto;
+    .skip {
+      position: absolute;
+      left: -9999px;
+      top: 0;
+    }
+
+    .skip:focus {
+      left: 10px;
+      z-index: 100;
+      background: var(--gold);
+      color: #000;
+      padding: 10px;
     }
 
     header {
       position: sticky;
       top: 0;
-      z-index: 10;
-      background: rgba(16, 16, 16, 0.96);
+      z-index: 20;
+      background: rgba(13,13,13,.97);
       border-bottom: 1px solid var(--border);
-      backdrop-filter: blur(10px);
     }
 
-    .header-inner {
-      min-height: 76px;
+    .head {
       display: flex;
       align-items: center;
       justify-content: space-between;
-      gap: 20px;
+      gap: 14px;
       flex-wrap: wrap;
-      padding-block: 12px;
+      padding: 15px 0;
     }
 
     .logo {
       color: var(--text);
-      text-decoration: none;
-      font-family: Arial, sans-serif;
-      font-size: 1.1rem;
-      font-weight: bold;
+      font: bold 17px var(--sans);
       letter-spacing: 4px;
+      text-decoration: none;
       white-space: nowrap;
     }
+
+    .logo span { color: var(--gold); }
 
     nav {
       display: flex;
       flex-wrap: wrap;
-      gap: 8px 20px;
+      gap: 5px 16px;
+      align-items: center;
     }
 
     nav a {
       color: var(--muted);
+      font: 12px var(--sans);
       text-decoration: none;
-      font-family: Arial, sans-serif;
-      font-size: 0.82rem;
-      transition: color 0.2s;
     }
 
-    nav a:hover {
-      color: var(--accent);
-    }
+    nav a:hover { color: var(--gold); }
 
     .hero {
-      min-height: 76vh;
+      min-height: 80vh;
       display: flex;
       align-items: center;
+      padding: 95px 0;
       background:
-        radial-gradient(ellipse at 80% 20%, #29231c 0%, transparent 45%),
-        linear-gradient(135deg, #171717, #090909);
-      padding: 100px 0;
+        radial-gradient(ellipse at 80% 25%, #35291b 0%, transparent 42%),
+        linear-gradient(135deg, #171614, #0d0d0d 70%);
+      border-bottom: 1px solid var(--border);
     }
 
-    .eyebrow {
-      color: var(--accent);
-      font-family: Arial, sans-serif;
-      font-size: 0.75rem;
-      letter-spacing: 4px;
-      text-transform: uppercase;
-    }
-
-    .hero h1 {
-      max-width: 850px;
-      margin: 22px 0;
-      font-size: clamp(2.7rem, 7vw, 5.8rem);
-      line-height: 1.12;
-      font-weight: normal;
-      letter-spacing: -2px;
-    }
-
-    .hero p {
-      max-width: 620px;
-      color: var(--muted);
-      font-size: 1.08rem;
-    }
-
-    .button {
-      display: inline-block;
-      margin-top: 22px;
-      padding: 11px 24px;
-      border: 1px solid var(--accent);
-      color: var(--text);
-      text-decoration: none;
-      transition: background 0.2s, color 0.2s;
-    }
-
-    .button:hover {
-      background: var(--accent);
-      color: #101010;
-    }
-
-    section {
-      padding: 76px 0;
-      border-bottom: 1px solid #292929;
-    }
-
-    .section-label {
-      color: var(--accent);
-      font-family: Arial, sans-serif;
-      font-size: 0.75rem;
+    .eyebrow, .label {
+      color: var(--gold);
+      font: 11px/1.8 var(--sans);
       letter-spacing: 3px;
       text-transform: uppercase;
     }
 
-    section h2 {
-      margin: 8px 0 16px;
-      font-size: clamp(2rem, 4vw, 2.8rem);
+    h1, h2, h3, p { overflow-wrap: anywhere; }
+
+    .hero h1 {
+      max-width: 850px;
+      font-size: clamp(44px, 8vw, 88px);
       font-weight: normal;
-      line-height: 1.25;
+      line-height: 1.06;
+      letter-spacing: -2px;
+      margin: 24px 0;
     }
 
-    section p {
-      max-width: 720px;
+    .hero h1 em {
+      color: var(--gold);
+      font-weight: normal;
+    }
+
+    .hero p {
+      max-width: 600px;
       color: var(--muted);
+      font-size: 17px;
     }
 
-    .cards {
+    .buttons {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 25px;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 44px;
+      padding: 10px 19px;
+      border: 1px solid var(--gold);
+      color: var(--text);
+      background: transparent;
+      text-decoration: none;
+      cursor: pointer;
+      font-size: 13px;
+      transition: .2s;
+    }
+
+    .btn:hover {
+      background: var(--gold);
+      color: #111;
+    }
+
+    .btn.muted-btn { border-color: var(--border); }
+
+    section {
+      padding: 76px 0;
+      border-bottom: 1px solid #292723;
+    }
+
+    .intro { max-width: 700px; margin-bottom: 32px; }
+
+    h2 {
+      font-size: clamp(30px, 5vw, 45px);
+      line-height: 1.2;
+      font-weight: normal;
+      margin: 8px 0 16px;
+    }
+
+    h3 { line-height: 1.4; }
+
+    .intro p, .muted { color: var(--muted); }
+
+    .grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(min(100%, 250px), 1fr));
+      grid-template-columns: repeat(2, minmax(0, 1fr));
       gap: 20px;
-      margin-top: 30px;
     }
 
     .card {
-      min-width: 0;
       padding: 26px;
       border: 1px solid var(--border);
-      background: var(--surface);
-      overflow-wrap: anywhere;
+      background: var(--panel);
+      min-width: 0;
     }
 
     .card h3 {
-      margin-top: 0;
-      font-size: 1.35rem;
+      font-size: 23px;
       font-weight: normal;
+      margin: 8px 0 12px;
     }
 
-    .card p {
-      margin-bottom: 0;
+    .card p { color: var(--muted); }
+
+    .featured {
+      background: linear-gradient(140deg, #211d17, #141414 75%);
+      border-color: #514333;
     }
 
-    blockquote {
-      max-width: 750px;
-      margin: 30px 0;
-      padding: 8px 0 8px 24px;
-      border-left: 2px solid var(--accent);
-      color: var(--text);
-      font-size: clamp(1.3rem, 3vw, 1.8rem);
+    .poem {
+      padding: 15px 0;
+      font-size: 18px;
+      line-height: 2;
+    }
+
+    .poem p { margin: 0; color: var(--text); }
+
+    .quote {
+      margin: 28px 0;
+      padding-left: 22px;
+      border-left: 2px solid var(--gold);
+      font-size: clamp(21px, 3vw, 29px);
       font-style: italic;
       line-height: 1.6;
     }
 
-    .video-container {
+    .manifesto {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 14px;
+      margin-top: 28px;
+    }
+
+    .principle {
+      padding: 22px;
+      border-top: 1px solid var(--gold);
+      background: var(--panel);
+    }
+
+    .principle strong {
+      display: block;
+      color: var(--gold);
+      font-weight: normal;
+      font-size: 23px;
+      margin-bottom: 8px;
+    }
+
+    .principle p { color: var(--muted); margin-bottom: 0; }
+
+    .question-box {
+      padding: clamp(24px, 5vw, 45px);
+      background: var(--panel);
+      border: 1px solid var(--border);
+    }
+
+    .question-box h3 {
+      font-size: clamp(25px, 4vw, 38px);
+      line-height: 1.4;
+      font-weight: normal;
+    }
+
+    .answer {
+      padding-top: 18px;
+      border-top: 1px solid var(--border);
+      color: var(--muted);
+    }
+
+    [hidden] { display: none !important; }
+
+    .video {
       position: relative;
-      width: 100%;
-      max-width: 850px;
-      margin-top: 30px;
       aspect-ratio: 16 / 9;
       background: #000;
     }
 
-    .video-container iframe {
+    .video iframe {
       position: absolute;
-      inset: 0;
       width: 100%;
       height: 100%;
+      inset: 0;
       border: 0;
     }
 
-    .social-link {
-      display: inline-block;
-      margin-top: 12px;
-      overflow-wrap: anywhere;
+    .episode-info { padding: 22px; }
+
+    .episode-info h3 { font-weight: normal; font-size: 23px; }
+
+    .episode-info p { color: var(--muted); }
+
+    .journal-entry {
+      margin-top: 20px;
+      padding: 22px 0;
+      border-top: 1px solid var(--border);
+    }
+
+    .journal-entry h3 { font-weight: normal; font-size: 24px; }
+
+    .contact-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 16px;
+    }
+
+    .contact-grid .card a { display: inline-block; }
+
+    .sharebox {
+      margin-top: 25px;
+      padding-top: 20px;
+      border-top: 1px solid var(--border);
+    }
+
+    .status {
+      min-height: 1.6em;
+      color: var(--gold);
+      font: 13px var(--sans);
     }
 
     footer {
-      padding: 35px 0;
+      padding: 38px 0;
       text-align: center;
-      color: #96918a;
+      color: var(--muted);
+      font-size: 13px;
     }
 
-    footer p {
-      margin: 5px 0;
-    }
-
-    .footer-tagline {
+    footer strong {
+      display: block;
       color: var(--text);
-      letter-spacing: 1px;
+      font: 13px var(--sans);
+      letter-spacing: 2px;
+      margin-bottom: 8px;
     }
 
-    @media (max-width: 650px) {
-      .container {
-        width: 88%;
-      }
+    .top-link {
+      display: inline-block;
+      margin-top: 10px;
+      text-decoration: none;
+    }
 
-      .header-inner {
-        gap: 10px;
-      }
+    @media (max-width: 700px) {
+      .wrap { width: 90%; }
 
-      nav {
-        gap: 6px 14px;
-      }
+      .head { align-items: flex-start; flex-direction: column; }
 
-      nav a {
-        font-size: 0.78rem;
-      }
+      nav { gap: 8px 14px; }
 
-      .hero {
-        min-height: 65vh;
-        padding: 75px 0;
-      }
+      .hero { min-height: 68vh; padding: 75px 0; }
 
-      .hero h1 {
-        letter-spacing: -1px;
-      }
+      .hero h1 { letter-spacing: -1px; }
 
-      section {
-        padding: 55px 0;
-      }
+      section { padding: 56px 0; }
+
+      .grid, .contact-grid { grid-template-columns: 1fr; }
+
+      .manifesto { grid-template-columns: 1fr; }
+
+      .card { padding: 22px; }
     }
 
     @media (prefers-reduced-motion: reduce) {
-      html {
-        scroll-behavior: auto;
-      }
-
-      * {
-        transition: none !important;
-      }
+      html { scroll-behavior: auto; }
+      *, *::before, *::after { transition: none !important; }
     }
   </style>
 </head>
 
 <body>
+  <a class="skip" href="#main">Skip to content</a>
 
   <header>
-    <div class="container header-inner">
-      <a class="logo" href="#home">FOUND POD.</a>
-
+    <div class="wrap head">
+      <a class="logo" href="#home">FOUND <span>POD.</span></a>
       <nav aria-label="Main navigation">
         <a href="#home">Home</a>
         <a href="#poetry">Poetry</a>
-        <a href="#reflections">Reflections</a>
-        <a href="#podcast">Podcast</a>
+        <a href="#journal">Journal</a>
+        <a href="#question">Question</a>
+        <a href="#episodes">Episodes</a>
+        <a href="#about">About</a>
         <a href="#connect">Connect</a>
       </nav>
     </div>
   </header>
 
-  <main>
+  <main id="main">
     <section class="hero" id="home">
-      <div class="container">
-        <span class="eyebrow">A space for thought and self-discovery</span>
+      <div class="wrap">
+        <div class="eyebrow">The Observer's Journal · Found Podcast</div>
 
-        <h1>Somewhere Between Questions, We Find Ourselves.</h1>
+        <h1>Not here to have every answer.<br>Here to <em>see more clearly.</em></h1>
 
         <p>
-          A place for honest thoughts, poetry, conversations,
-          and the search for meaning beyond the ordinary.
+          Poetry, honest reflections, and conversations about being human.
+          A space for the curious mind, the questioning heart,
+          and everyone learning, unlearning, and becoming.
         </p>
 
-        <a class="button" href="#reflections">Explore the Thoughts</a>
+        <div class="buttons">
+          <a class="btn" href="#journal">Enter the Journal</a>
+          <a class="btn muted-btn" href="#episodes">Watch the Podcast</a>
+        </div>
+
+        <p class="muted">Observe. Question. Unlearn. Become.</p>
+      </div>
+    </section>
+
+    <section id="manifesto">
+      <div class="wrap">
+        <div class="intro">
+          <div class="label">A way of looking at life</div>
+          <h2>The Found Philosophy</h2>
+          <p>
+            Not everything needs a quick conclusion. Sometimes the most
+            valuable thing we can offer is attention: to ourselves,
+            to one another, and to the world we share.
+          </p>
+        </div>
+
+        <div class="manifesto">
+          <article class="principle">
+            <strong>01 / Observe</strong>
+            <p>Look beyond first impressions. Listen before deciding what something means.</p>
+          </article>
+
+          <article class="principle">
+            <strong>02 / Question</strong>
+            <p>Examine assumptions, challenge familiar ideas, and leave room for another perspective.</p>
+          </article>
+
+          <article class="principle">
+            <strong>03 / Become</strong>
+            <p>Learn, unlearn, and relearn. Growth is not the end of questioning but part of it.</p>
+          </article>
+        </div>
       </div>
     </section>
 
     <section id="poetry">
-      <div class="container">
-        <span class="section-label">Words & Expression</span>
-        <h2>Poetry &amp; Words</h2>
+      <div class="wrap">
+        <div class="intro">
+          <div class="label">Words from within</div>
+          <h2>Poetry &amp; the Unspoken</h2>
+          <p>
+            Sometimes language reaches places ordinary conversation cannot.
+            These words are an invitation to pause and look inward.
+          </p>
+        </div>
 
-        <p>
-          Words for the things we feel but don't always know how to say.
-          Observations of life, emotion, silence, and everything in between.
+        <article class="card featured">
+          <div class="label">Featured poem · Original writing</div>
+          <h3>The Space Between</h3>
+
+          <div class="poem">
+            <p>Somewhere between who I was</p>
+            <p>and who I am becoming,</p>
+            <p>I found a silence</p>
+            <p>that did not ask me to explain.</p>
+            <br>
+            <p>There were questions without answers,</p>
+            <p>roads without names,</p>
+            <p>and pieces of myself</p>
+            <p>I had mistaken for the whole.</p>
+            <br>
+            <p>So I stopped chasing every echo.</p>
+            <p>I listened.</p>
+            <p>And in the quiet,</p>
+            <p>I began to understand.</p>
+          </div>
+
+          <button class="btn" type="button" id="share-poem">Share this poem</button>
+        </article>
+      </div>
+    </section>
+
+    <section id="journal">
+      <div class="wrap">
+        <div class="intro">
+          <div class="label">The observer's journal</div>
+          <h2>Thoughts Without Easy Conclusions</h2>
+          <p>
+            This journal explores the ordinary moments and difficult
+            questions that can change how we see ourselves and others.
+          </p>
+        </div>
+
+        <article class="card featured">
+          <div class="label">Featured reflection</div>
+          <h3>The Courage to Observe</h3>
+
+          <p>
+            We often rush to explain life before we have taken the time
+            to experience it. We name things, judge them, and search for
+            conclusions because uncertainty can make us uncomfortable.
+          </p>
+
+          <p>
+            But observation has its own kind of courage. It asks us to
+            remain present without pretending to know everything.
+            To listen before responding. To question our assumptions.
+            To admit that another person's experience may reveal
+            something we could not see from our own position.
+          </p>
+
+          <p>
+            Perhaps understanding does not always begin with an answer.
+            Perhaps it begins when we become willing to look again.
+          </p>
+
+          <blockquote class="quote">
+            "To observe is to see; to question is to understand;
+            to transcend is to become."
+          </blockquote>
+
+          <button class="btn" type="button" id="share-reflection">
+            Share this reflection
+          </button>
+        </article>
+
+        <article class="journal-entry">
+          <div class="label">A note on the journey</div>
+          <h3>Learning Is Not a Straight Line</h3>
+          <p>
+            We learn something, build a way of seeing the world around it,
+            and eventually discover that our understanding has more room
+            to grow. Unlearning is not always failure. Sometimes it is
+            the honesty required to make room for a better question.
+          </p>
+        </article>
+
+        <p class="muted">
+          These are starting pieces for the site. The journal can grow
+          as you add your own poems and reflections.
         </p>
+      </div>
+    </section>
 
-        <div class="cards">
-          <article class="card">
-            <h3>My Poetry</h3>
-            <p>
-              A growing collection of poems, emotions, and observations
-              about the human experience.
-            </p>
+    <section id="question">
+      <div class="wrap">
+        <div class="intro">
+          <div class="label">A moment of reflection</div>
+          <h2>A Question to Carry</h2>
+          <p>
+            One question each day. No perfect answer required.
+          </p>
+        </div>
+
+        <div class="question-box">
+          <div class="label" id="question-date">Today's question</div>
+          <h3 id="question-text">
+            Are you becoming who you truly are, or who the world expects you to be?
+          </h3>
+
+          <button class="btn" id="reflect-button" type="button"
+                  aria-expanded="false" aria-controls="answer">
+            Sit with this question
+          </button>
+
+          <div class="answer" id="answer" hidden>
+            <p id="answer-text"></p>
+            <button class="btn muted-btn" id="share-question" type="button">
+              Share this question
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="episodes">
+      <div class="wrap">
+        <div class="intro">
+          <div class="label">Conversations in motion</div>
+          <h2>Found Podcast</h2>
+          <p>
+            A voice for reflections on existence, identity, purpose,
+            and the experiences that shape us. Watch, listen, and
+            bring your own questions.
+          </p>
+        </div>
+
+        <div class="grid">
+          <article class="card" style="padding:0; overflow:hidden">
+            <div style="position:relative;aspect-ratio:16/9;background:#000">
+              <iframe
+                src="https://www.youtube.com/embed/E5RfwKd8aOI"
+                title="Found Podcast — October 15, 2026"
+                loading="lazy"
+                style="position:absolute;inset:0;width:100%;height:100%;border:0"
+                referrerpolicy="strict-origin-when-cross-origin"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                allowfullscreen>
+              </iframe>
+            </div>
+
+            <div class="episode-info">
+              <div class="label">Featured video</div>
+              <h3>October 15, 2026</h3>
+              <p>Watch the featured Found Podcast video and continue the conversation on YouTube.</p>
+
+              <div class="buttons">
+                <a class="btn" href="https://www.youtube.com/watch?v=E5RfwKd8aOI"
+                   target="_blank" rel="noopener noreferrer">Watch on YouTube</a>
+                <button class="btn muted-btn" id="share-episode" type="button">
+                  Share episode
+                </button>
+              </div>
+            </div>
           </article>
 
           <article class="card">
-            <h3>Creative Writing</h3>
+            <div class="label">The journey continues</div>
+            <h3>More Voices. More Questions.</h3>
             <p>
-              Fragments of thought, written moments, and words
-              still finding their shape.
+              Future episodes can explore identity, work, purpose,
+              relationships, self-discovery, and the different ways
+              people make sense of their lives.
             </p>
+            <p class="muted">
+              New episode links can be added here as they are published.
+            </p>
+            <a class="btn muted-btn"
+               href="https://www.youtube.com/watch?v=E5RfwKd8aOI"
+               target="_blank" rel="noopener noreferrer">Explore on YouTube</a>
           </article>
         </div>
       </div>
     </section>
 
-    <section id="reflections">
-      <div class="container">
-        <span class="section-label">Looking Within</span>
-        <h2>Reflections</h2>
-
-        <p>
-          Life does not always ask us for answers.
-          Sometimes it asks us to observe, question, and understand.
-        </p>
-
-        <blockquote>
-          "To observe is to see; to question is to understand;
-          to transcend is to become."
-        </blockquote>
-
-        <p>
-          This is a space for ideas, personal observations,
-          and reflections on the questions that make us human.
-        </p>
-      </div>
-    </section>
-
-    <section id="podcast">
-      <div class="container">
-        <span class="section-label">Listen. Watch. Reflect.</span>
-        <h2>Found Podcast</h2>
-
-        <p>
-          Conversations and reflections on existence, identity,
-          purpose, and the experiences that shape us.
-        </p>
-
-        <p>
-          Every question opens a door. Every conversation offers
-          another way to see the world.
-        </p>
-
-        <div class="video-container">
-          <iframe
-            src="https://www.youtube.com/embed/E5RfwKd8aOI"
-            title="Found Podcast — YouTube episode"
-            loading="lazy"
-            referrerpolicy="strict-origin-when-cross-origin"
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-            allowfullscreen>
-          </iframe>
+    <section id="about">
+      <div class="wrap">
+        <div class="intro">
+          <div class="label">Behind the voice</div>
+          <h2>About the Creator</h2>
         </div>
 
-        <a
-          class="button"
-          href="https://www.youtube.com/watch?v=E5RfwKd8aOI"
-          target="_blank"
-          rel="noopener noreferrer">
-          Watch on YouTube
-        </a>
+        <article class="card featured">
+          <h3>A Poet. An Observer. A Student of Life.</h3>
+
+          <p>
+            I'm drawn to words, questions, and the small details of
+            being human that often go unnoticed. Poetry gives me a way
+            to express what is difficult to explain. Reflection gives
+            me room to examine what I think I know.
+          </p>
+
+          <p>
+            My approach is rooted in observation rather than the need
+            to have the final answer. I am interested in learning,
+            unlearning, and relearning; in understanding different
+            perspectives; and in making room for conversations that
+            do not have to end with everyone agreeing.
+          </p>
+
+          <p>
+            Found Podcast is an extension of that curiosity.
+            It brings together poetry, written reflections, and
+            conversations about identity, purpose, humanity, and
+            the ongoing process of becoming.
+          </p>
+
+          <p>
+            This is a space to think out loud, listen with care,
+            and discover that sometimes the question itself
+            is worth keeping.
+          </p>
+
+          <blockquote class="quote">
+            "I don't have to be the solution to every question.
+            Sometimes I can observe, write, and make room for
+            another perspective."
+          </blockquote>
+
+          <p class="muted">
+            This introduction is a starting draft. You can edit it
+            to sound even more like your own voice.
+          </p>
+        </article>
       </div>
     </section>
 
     <section id="connect">
-      <div class="container">
-        <span class="section-label">Beyond This Space</span>
-        <h2>Stay Connected</h2>
+      <div class="wrap">
+        <div class="intro">
+          <div class="label">Continue the conversation</div>
+          <h2>Stay Connected</h2>
+          <p>
+            If an idea resonates with you, share it.
+            If you see things differently, that belongs here too.
+          </p>
+        </div>
 
-        <p>
-          Continue the conversation. Watch, connect, and share
-          your thoughts beyond this space.
-        </p>
-
-        <div class="cards">
+        <div class="contact-grid">
           <article class="card">
             <h3>YouTube</h3>
-            <p>Watch Found Podcast and explore the conversations.</p>
-            <a
-              class="social-link"
-              href="https://www.youtube.com/watch?v=E5RfwKd8aOI"
-              target="_blank"
-              rel="noopener noreferrer">
-              Watch the latest video
-            </a>
-          </article>
-
-          <article class="card">
-            <h3>Facebook</h3>
-            <p>Connect with Chris Irush and join the conversation.</p>
-            <a
-              class="social-link"
-              href="https://www.facebook.com/"
-              target="_blank"
-              rel="noopener noreferrer">
-              Find me on Facebook
-            </a>
+            <p>Watch the podcast and discover the conversations.</p>
+            <a href="https://www.youtube.com/watch?v=E5RfwKd8aOI"
+               target="_blank" rel="noopener noreferrer">Watch the video</a>
           </article>
 
           <article class="card">
             <h3>WhatsApp</h3>
-            <p>Reach out and continue the conversation directly.</p>
-            <a
-              class="social-link"
-              href="https://wa.me/254705711156"
-              target="_blank"
-              rel="noopener noreferrer">
-              Connect on WhatsApp
-            </a>
+            <p>Reach out directly to continue the conversation.</p>
+            <a href="https://wa.me/254705711156"
+               target="_blank" rel="noopener noreferrer">Connect on WhatsApp</a>
           </article>
+
+          <article class="card">
+            <h3>Facebook</h3>
+            <p>Connect with the creator on Facebook.</p>
+            <p class="muted">The direct profile link can be added when ready.</p>
+          </article>
+
+          <article class="card">
+            <h3>Email &amp; Collaborations</h3>
+            <p>For future questions, collaborations, and listener contributions.</p>
+            <p class="muted">A public email address can be added later.</p>
+          </article>
+        </div>
+
+        <div class="sharebox">
+          <h3>Pass the thought along.</h3>
+          <p class="muted">Share Found Podcast with someone who enjoys asking questions.</p>
+          <div class="buttons">
+            <button class="btn" type="button" id="share-site">Share this website</button>
+            <a class="btn muted-btn"
+               href="https://wa.me/?text=Discover%20Found%20Podcast%20%E2%80%94%20a%20space%20for%20thought%20and%20self-discovery."
+               target="_blank" rel="noopener noreferrer">Share on WhatsApp</a>
+          </div>
+          <p class="status" id="status" role="status" aria-live="polite"></p>
         </div>
       </div>
     </section>
   </main>
 
   <footer>
-    <div class="container">
-      <p class="footer-tagline">FOUND PODCAST. Not just a voice. A frequency.</p>
-      <p>&copy; <span id="year">2026</span> Found Podcast. All rights reserved.</p>
+    <div class="wrap">
+      <strong>FOUND PODCAST</strong>
+      <p>Not just a voice. A frequency.</p>
+      <p>A space for thought and self-discovery.</p>
+      <p>&copy; <span id="year"></span> Found Podcast.</p>
+      <a class="top-link" href="#home">Return to the beginning ↑</a>
     </div>
   </footer>
 
+  <script>
+    "use strict";
+
+    const episodeUrl = "https://www.youtube.com/watch?v=E5RfwKd8aOI";
+    const status = document.getElementById("status");
+
+    const questions = [
+      {
+        q: "Are you becoming who you truly are, or who the world expects you to be?",
+        a: "Notice which choices feel honest to you and which are shaped by fear of disappointing others. You do not need to solve everything today. Begin by noticing."
+      },
+      {
+        q: "What would you change if you stopped being afraid of being misunderstood?",
+        a: "Think of one thing you have held back from saying or doing. What would an honest, thoughtful first step look like?"
+      },
+      {
+        q: "Can you listen to someone without preparing your response?",
+        a: "Try listening to understand, not merely to agree or disagree. What might another person's experience show you?"
+      },
+      {
+        q: "What belief have you outgrown but still carry?",
+        a: "Some beliefs once served a purpose. Ask whether they still help you live the life you want."
+      },
+      {
+        q: "Who are you when nobody is asking you to prove anything?",
+        a: "Think about the moments when you feel most at ease. What do they reveal about what matters to you?"
+      },
+      {
+        q: "Are you looking for answers, or learning to ask better questions?",
+        a: "Choose an assumption you rarely examine. What might you discover if you looked at it from another perspective?"
+      },
+      {
+        q: "What does a meaningful life look like when nobody else is judging it?",
+        a: "Set comparison aside for a moment. Which relationships, actions, and experiences make life worthwhile to you?"
+      }
+    ];
+
+    function todayQuestion() {
+      const now = new Date();
+      const dateKey = [
+        now.getFullYear(),
+        String(now.getMonth() + 1).padStart(2, "0"),
+        String(now.getDate()).padStart(2, "0")
+      ].join("-");
+
+      const dayNumber = Math.floor(
+        Date.UTC(now.getFullYear(), now.getMonth(), now.getDate()) / 86400000
+      );
+
+      const item = questions[
+        ((dayNumber % questions.length) + questions.length) % questions.length
+      ];
+
+      document.getElementById("question-date").textContent =
+        "TODAY'S QUESTION · " + now.toLocaleDateString(undefined, {
+          day: "numeric", month: "long", year: "numeric"
+        });
+
+      document.getElementById("question-text").textContent = item.q;
+      document.getElementById("answer-text").textContent = item.a;
+
+      return { ...item, dateKey };
+    }
+
+    let currentQuestion = todayQuestion();
+
+    document.getElementById("year").textContent =
+      String(new Date().getFullYear());
+
+    const reflectButton = document.getElementById("reflect-button");
+    const answer = document.getElementById("answer");
+
+    reflectButton.addEventListener("click", function () {
+      const open = answer.hidden;
+      answer.hidden = !open;
+      reflectButton.setAttribute("aria-expanded", String(open));
+      reflectButton.textContent = open
+        ? "Close reflection"
+        : "Sit with this question";
+    });
+
+    async function share(title, text, url) {
+      if (navigator.share) {
+        try {
+          await navigator.share({ title, text, url });
+          status.textContent = "Thank you for sharing.";
+          return;
+        } catch (error) {
+          if (error && error.name === "AbortError") {
+            status.textContent = "Sharing cancelled.";
+            return;
+          }
+        }
+      }
+
+      try {
+        if (navigator.clipboard && window.isSecureContext) {
+          await navigator.clipboard.writeText(url);
+          status.textContent = "Link copied. Paste it wherever you want to share.";
+          return;
+        }
+      } catch (error) {
+        // Use the manual-copy option below.
+      }
+
+      window.prompt("Copy this link to share:", url);
+      status.textContent = "Copy the link from the box to share it.";
+    }
+
+    function siteUrl(section) {
+      return window.location.href.split("#")[0] + section;
+    }
+
+    document.getElementById("share-site").addEventListener("click", function () {
+      share(
+        "Found Podcast",
+        "A space for thought, poetry, and self-discovery.",
+        siteUrl("#home")
+      );
+    });
+
+    document.getElementById("share-episode").addEventListener("click", function () {
+      share(
+        "Found Podcast",
+        "Watch this Found Podcast episode.",
+        episodeUrl
+      );
+    });
+
+    document.getElementById("share-poem").addEventListener("click", function () {
+      share(
+        "The Space Between — Found Podcast",
+        "A poem about silence, change, and self-discovery.",
+        siteUrl("#poetry")
+      );
+    });
+
+    document.getElementById("share-reflection").addEventListener("click", function () {
+      share(
+        "The Courage to Observe — Found Podcast",
+        "A reflection on listening, questioning, and understanding.",
+        siteUrl("#journal")
+      );
+    });
+
+    document.getElementById("share-question").addEventListener("click", function () {
+      share(
+        "A Question to Carry — Found Podcast",
+        currentQuestion.q,
+        siteUrl("#question")
+      );
+    });
+  </script>
 </body>
 </html>
