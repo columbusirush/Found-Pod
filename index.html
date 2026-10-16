@@ -1,176 +1,469 @@
-<!DOCTYPE html>
 
+<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <meta name="theme-color" content="#101010">
+  <meta name="description" content="Found Podcast — a space for thought and self-discovery. Explore poetry, reflections, honest conversations, and the search for meaning.">
+
   <title>Found Podcast | A Space for Thought</title>
+
   <style>
-    * { box-sizing: border-box; }
+    :root {
+      --background: #101010;
+      --surface: #181818;
+      --text: #f2f0eb;
+      --muted: #b5b1aa;
+      --border: #33312e;
+      --accent: #d2b48c;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+      scroll-padding-top: 85px;
+    }
+
     body {
       margin: 0;
-      background: #101010;
-      color: #f2f2f2;
-      font-family: Georgia, serif;
-      line-height: 1.7;
+      background: var(--background);
+      color: var(--text);
+      font-family: Georgia, "Times New Roman", serif;
+      line-height: 1.8;
     }
+
+    a {
+      color: var(--accent);
+    }
+
+    a:focus-visible {
+      outline: 2px solid var(--accent);
+      outline-offset: 5px;
+    }
+
+    .container {
+      width: min(1100px, 84%);
+      margin-inline: auto;
+    }
+
     header {
-      padding: 25px 8%;
-      border-bottom: 1px solid #333;
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      background: rgba(16, 16, 16, 0.96);
+      border-bottom: 1px solid var(--border);
+      backdrop-filter: blur(10px);
+    }
+
+    .header-inner {
+      min-height: 76px;
       display: flex;
-      justify-content: space-between;
       align-items: center;
+      justify-content: space-between;
+      gap: 20px;
       flex-wrap: wrap;
+      padding-block: 12px;
     }
-    header h2 { letter-spacing: 3px; }
-    nav a {
-      color: #ccc;
+
+    .logo {
+      color: var(--text);
       text-decoration: none;
-      margin: 0 10px;
-      font-size: 14px;
+      font-family: Arial, sans-serif;
+      font-size: 1.1rem;
+      font-weight: bold;
+      letter-spacing: 4px;
+      white-space: nowrap;
     }
-    nav a:hover { color: white; }
-    .hero {
-      min-height: 65vh;
-      padding: 100px 8%;
+
+    nav {
       display: flex;
-      flex-direction: column;
-      justify-content: center;
-      background: linear-gradient(135deg, #171717, #080808);
+      flex-wrap: wrap;
+      gap: 8px 20px;
     }
-    .hero small {
-      color: #aaa;
+
+    nav a {
+      color: var(--muted);
+      text-decoration: none;
+      font-family: Arial, sans-serif;
+      font-size: 0.82rem;
+      transition: color 0.2s;
+    }
+
+    nav a:hover {
+      color: var(--accent);
+    }
+
+    .hero {
+      min-height: 76vh;
+      display: flex;
+      align-items: center;
+      background:
+        radial-gradient(ellipse at 80% 20%, #29231c 0%, transparent 45%),
+        linear-gradient(135deg, #171717, #090909);
+      padding: 100px 0;
+    }
+
+    .eyebrow {
+      color: var(--accent);
+      font-family: Arial, sans-serif;
+      font-size: 0.75rem;
       letter-spacing: 4px;
       text-transform: uppercase;
     }
+
     .hero h1 {
-      font-size: clamp(42px, 8vw, 78px);
-      line-height: 1.1;
-      max-width: 750px;
-      margin: 20px 0;
+      max-width: 850px;
+      margin: 22px 0;
+      font-size: clamp(2.7rem, 7vw, 5.8rem);
+      line-height: 1.12;
+      font-weight: normal;
+      letter-spacing: -2px;
     }
-    .hero p { color: #bbb; max-width: 550px; }
+
+    .hero p {
+      max-width: 620px;
+      color: var(--muted);
+      font-size: 1.08rem;
+    }
+
     .button {
       display: inline-block;
-      border: 1px solid #888;
-      color: white;
-      padding: 10px 22px;
+      margin-top: 22px;
+      padding: 11px 24px;
+      border: 1px solid var(--accent);
+      color: var(--text);
       text-decoration: none;
-      margin-top: 20px;
-      width: fit-content;
+      transition: background 0.2s, color 0.2s;
     }
-    section { padding: 65px 8%; border-bottom: 1px solid #292929; }
-    section h2 { font-size: 32px; }
-    section p { color: #bbb; max-width: 650px; }
+
+    .button:hover {
+      background: var(--accent);
+      color: #101010;
+    }
+
+    section {
+      padding: 76px 0;
+      border-bottom: 1px solid #292929;
+    }
+
+    .section-label {
+      color: var(--accent);
+      font-family: Arial, sans-serif;
+      font-size: 0.75rem;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+    }
+
+    section h2 {
+      margin: 8px 0 16px;
+      font-size: clamp(2rem, 4vw, 2.8rem);
+      font-weight: normal;
+      line-height: 1.25;
+    }
+
+    section p {
+      max-width: 720px;
+      color: var(--muted);
+    }
+
     .cards {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(min(100%, 250px), 1fr));
       gap: 20px;
       margin-top: 30px;
     }
+
     .card {
-      padding: 25px;
-      border: 1px solid #333;
-      background: #161616;
+      min-width: 0;
+      padding: 26px;
+      border: 1px solid var(--border);
+      background: var(--surface);
+      overflow-wrap: anywhere;
     }
-    .card h3 { margin-top: 0; }
-    footer { padding: 30px 8%; color: #999; text-align: center; }
-    @media (max-width: 600px) {
-      header { display: block; }
-      nav a { display: inline-block; margin: 5px 8px 5px 0; }
-      .hero { padding-top: 70px; padding-bottom: 70px; }
+
+    .card h3 {
+      margin-top: 0;
+      font-size: 1.35rem;
+      font-weight: normal;
+    }
+
+    .card p {
+      margin-bottom: 0;
+    }
+
+    blockquote {
+      max-width: 750px;
+      margin: 30px 0;
+      padding: 8px 0 8px 24px;
+      border-left: 2px solid var(--accent);
+      color: var(--text);
+      font-size: clamp(1.3rem, 3vw, 1.8rem);
+      font-style: italic;
+      line-height: 1.6;
+    }
+
+    .video-container {
+      position: relative;
+      width: 100%;
+      max-width: 850px;
+      margin-top: 30px;
+      aspect-ratio: 16 / 9;
+      background: #000;
+    }
+
+    .video-container iframe {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      border: 0;
+    }
+
+    .social-link {
+      display: inline-block;
+      margin-top: 12px;
+      overflow-wrap: anywhere;
+    }
+
+    footer {
+      padding: 35px 0;
+      text-align: center;
+      color: #96918a;
+    }
+
+    footer p {
+      margin: 5px 0;
+    }
+
+    .footer-tagline {
+      color: var(--text);
+      letter-spacing: 1px;
+    }
+
+    @media (max-width: 650px) {
+      .container {
+        width: 88%;
+      }
+
+      .header-inner {
+        gap: 10px;
+      }
+
+      nav {
+        gap: 6px 14px;
+      }
+
+      nav a {
+        font-size: 0.78rem;
+      }
+
+      .hero {
+        min-height: 65vh;
+        padding: 75px 0;
+      }
+
+      .hero h1 {
+        letter-spacing: -1px;
+      }
+
+      section {
+        padding: 55px 0;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      html {
+        scroll-behavior: auto;
+      }
+
+      * {
+        transition: none !important;
+      }
     }
   </style>
 </head>
-<body>```html
-```html
-<section id="videos">
-  <h2>Watch Found Podcast</h2>
 
-  <div class="video-container">
-    <iframe
-      src="https://www.youtube.com/embed/E5RfwKd8aOI"
-      title="Found Podcast Video"
-      frameborder="0"
-      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-      allowfullscreen>
-    </iframe>
-  </div>
-</section>
+<body>
 
+  <header>
+    <div class="container header-inner">
+      <a class="logo" href="#home">FOUND POD.</a>
 
-<header>
-    <h2>FOUND POD.</h2>
-    <nav>
-      <a href="#rooted">Rooted</a>
-      <a href="#unfiltered">Unfiltered</a>
-      <a href="#spoken">Spoken</a>
-      <a href="#humanity">Humanity</a>
-      <a href="#connect">Connect</a>
-    </nav>
+      <nav aria-label="Main navigation">
+        <a href="#home">Home</a>
+        <a href="#poetry">Poetry</a>
+        <a href="#reflections">Reflections</a>
+        <a href="#podcast">Podcast</a>
+        <a href="#connect">Connect</a>
+      </nav>
+    </div>
   </header>
 
   <main>
-    <div class="hero" id="home">
-      <small>A space for thought and self-discovery</small>
-      <h1>Somewhere between questions, we find ourselves.</h1>
-      <p>A place for honest thoughts, poetry, conversations, and the search for meaning beyond the ordinary.</p>
-      <a class="button" href="#reflections">Explore the thoughts</a>
-    </div>
+    <section class="hero" id="home">
+      <div class="container">
+        <span class="eyebrow">A space for thought and self-discovery</span>
 
+        <h1>Somewhere Between Questions, We Find Ourselves.</h1>
 
-<section id="poetry">
-  <h2>Poetry & Words</h2>
-  <p>Words for the things we feel but don't always know how to say.</p>
-  <div class="cards">
-    <article class="card">
-      <h3>My Poetry</h3>
-      <p>A growing collection of poems, emotions, and observations of life.</p>
-    </article>
-    <article class="card">
-      <h3>Creative Writing</h3>
-      <p>Fragments of thought, written moments, and words still becoming.</p>
-    </article>
-  </div>
-</section>
+        <p>
+          A place for honest thoughts, poetry, conversations,
+          and the search for meaning beyond the ordinary.
+        </p>
 
-<section id="reflections">
-  <h2>Reflections</h2>
-  <p>Life is not always asking for answers.Sometimes it asks us to observe,question, and understand.</p>
-  <blockquote>“To observe is to see; to question is to understand; to transcend is to become.”</blockquote>
-  <p>New reflections and written pieces will find their home here.</p>
-</section>
+        <a class="button" href="#reflections">Explore the Thoughts</a>
+      </div>
+    </section>
 
-<section id="podcast">
-  <h2>Found Podcast</h2>
-  <p>Conversations and reflections on existence, identity, purpose, and the experiences that shape us.</p>
-  <p>Podcast episodes and videos will appear here as they are published.</p>
-</section>
+    <section id="poetry">
+      <div class="container">
+        <span class="section-label">Words & Expression</span>
+        <h2>Poetry &amp; Words</h2>
 
-<section id="connect">
-  <h2>Stay Connected</h2>
-  <p>Continue the conversation beyond this space.</p>
-  <div class="cards">
-    <article class="card">
-      <h3>YouTube</h3>
-      <p>https://www.youtube.com/watch?v=E5RfwKd8aOI.</p>
-    </article>
-    <article class="card">
-      <h3>Facebook</h3>
-      <p>style="color:white">Connect with me on Facebook @ Chris Irush.</p>
-    </article>
-    <article class="card">
-      <h3>WhatsApp</h3>
-      <p><a href="https://wa.me/254705711156" style="color:white">Connect with me on WhatsApp</a></p>
-    </article>
-  </div>
-</section>
-```
+        <p>
+          Words for the things we feel but don't always know how to say.
+          Observations of life, emotion, silence, and everything in between.
+        </p>
 
+        <div class="cards">
+          <article class="card">
+            <h3>My Poetry</h3>
+            <p>
+              A growing collection of poems, emotions, and observations
+              about the human experience.
+            </p>
+          </article>
+
+          <article class="card">
+            <h3>Creative Writing</h3>
+            <p>
+              Fragments of thought, written moments, and words
+              still finding their shape.
+            </p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="reflections">
+      <div class="container">
+        <span class="section-label">Looking Within</span>
+        <h2>Reflections</h2>
+
+        <p>
+          Life does not always ask us for answers.
+          Sometimes it asks us to observe, question, and understand.
+        </p>
+
+        <blockquote>
+          "To observe is to see; to question is to understand;
+          to transcend is to become."
+        </blockquote>
+
+        <p>
+          This is a space for ideas, personal observations,
+          and reflections on the questions that make us human.
+        </p>
+      </div>
+    </section>
+
+    <section id="podcast">
+      <div class="container">
+        <span class="section-label">Listen. Watch. Reflect.</span>
+        <h2>Found Podcast</h2>
+
+        <p>
+          Conversations and reflections on existence, identity,
+          purpose, and the experiences that shape us.
+        </p>
+
+        <p>
+          Every question opens a door. Every conversation offers
+          another way to see the world.
+        </p>
+
+        <div class="video-container">
+          <iframe
+            src="https://www.youtube.com/embed/E5RfwKd8aOI"
+            title="Found Podcast — YouTube episode"
+            loading="lazy"
+            referrerpolicy="strict-origin-when-cross-origin"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+            allowfullscreen>
+          </iframe>
+        </div>
+
+        <a
+          class="button"
+          href="https://www.youtube.com/watch?v=E5RfwKd8aOI"
+          target="_blank"
+          rel="noopener noreferrer">
+          Watch on YouTube
+        </a>
+      </div>
+    </section>
+
+    <section id="connect">
+      <div class="container">
+        <span class="section-label">Beyond This Space</span>
+        <h2>Stay Connected</h2>
+
+        <p>
+          Continue the conversation. Watch, connect, and share
+          your thoughts beyond this space.
+        </p>
+
+        <div class="cards">
+          <article class="card">
+            <h3>YouTube</h3>
+            <p>Watch Found Podcast and explore the conversations.</p>
+            <a
+              class="social-link"
+              href="https://www.youtube.com/watch?v=E5RfwKd8aOI"
+              target="_blank"
+              rel="noopener noreferrer">
+              Watch the latest video
+            </a>
+          </article>
+
+          <article class="card">
+            <h3>Facebook</h3>
+            <p>Connect with Chris Irush and join the conversation.</p>
+            <a
+              class="social-link"
+              href="https://www.facebook.com/"
+              target="_blank"
+              rel="noopener noreferrer">
+              Find me on Facebook
+            </a>
+          </article>
+
+          <article class="card">
+            <h3>WhatsApp</h3>
+            <p>Reach out and continue the conversation directly.</p>
+            <a
+              class="social-link"
+              href="https://wa.me/254705711156"
+              target="_blank"
+              rel="noopener noreferrer">
+              Connect on WhatsApp
+            </a>
+          </article>
+        </div>
+      </div>
+    </section>
   </main>
 
   <footer>
-    <p>FOUND PODCAST. Not just a voice.A frequency.</p>
+    <div class="container">
+      <p class="footer-tagline">FOUND PODCAST. Not just a voice. A frequency.</p>
+      <p>&copy; <span id="year">2026</span> Found Podcast. All rights reserved.</p>
+    </div>
   </footer>
 
 </body>
