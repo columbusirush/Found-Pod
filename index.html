@@ -1,367 +1,44 @@
 ```html
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="theme-color" content="#0d0d0d">
-<meta name="description" content="Found Podcast — a space for thought, poetry, self-discovery, and the human experience. Observe. Question. Unlearn. Become.">
-
-<title>Found Podcast — The Observer's Journal</title>
-
-<style>
-:root {
-  --bg:#0d0d0d;
-  --panel:#151515;
-  --text:#eee9df;
-  --muted:#aaa49a;
-  --gold:#c7a779;
-  --border:#34302a;
-  --serif:Georgia,"Times New Roman",serif;
-  --sans:Arial,Helvetica,sans-serif;
-}
-
-* {box-sizing:border-box;}
-
-html {
-  scroll-behavior:smooth;
-  scroll-padding-top:100px;
-}
-
-body {
-  margin:0;
-  background:var(--bg);
-  color:var(--text);
-  font-family:var(--serif);
-  line-height:1.85;
-  overflow-wrap:anywhere;
-}
-
-a {color:var(--gold);}
-
-button,input,textarea {font:inherit;}
-
-button:focus-visible,a:focus-visible {
-  outline:2px solid var(--gold);
-  outline-offset:4px;
-}
-
-.wrap {
-  width:min(1060px,90%);
-  margin:auto;
-}
-
-header {
-  position:sticky;
-  top:0;
-  z-index:20;
-  background:rgba(13,13,13,.97);
-  border-bottom:1px solid var(--border);
-}
-
-.head {
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  gap:15px;
-  flex-wrap:wrap;
-  padding:15px 0;
-}
-
-.logo {
-  color:var(--text);
-  font:bold 17px var(--sans);
-  letter-spacing:4px;
-  text-decoration:none;
-}
-
-.logo span {color:var(--gold);}
-
-nav {
-  display:flex;
-  flex-wrap:wrap;
-  gap:8px 16px;
-}
-
-nav a {
-  color:var(--muted);
-  font:12px var(--sans);
-  text-decoration:none;
-}
-
-nav a:hover {color:var(--gold);}
-
-.hero {
-  min-height:80vh;
-  display:flex;
-  align-items:center;
-  padding:90px 0;
-  background:
-    radial-gradient(ellipse at 80% 25%,#35291b 0%,transparent 42%),
-    linear-gradient(135deg,#171614,#0d0d0d 70%);
-  border-bottom:1px solid var(--border);
-}
-
-.eyebrow,.label {
-  color:var(--gold);
-  font:11px/1.8 var(--sans);
-  letter-spacing:3px;
-  text-transform:uppercase;
-}
-
-.hero h1 {
-  max-width:850px;
-  font-size:clamp(44px,8vw,88px);
-  font-weight:normal;
-  line-height:1.06;
-  letter-spacing:-2px;
-  margin:24px 0;
-}
-
-.hero h1 em {
-  color:var(--gold);
-  font-weight:normal;
-}
-
-.hero p {
-  max-width:600px;
-  color:var(--muted);
-  font-size:17px;
-}
-
-.buttons {
-  display:flex;
-  flex-wrap:wrap;
-  gap:12px;
-  margin-top:25px;
-}
-
-.btn {
-  display:inline-flex;
-  align-items:center;
-  justify-content:center;
-  min-height:44px;
-  padding:10px 19px;
-  border:1px solid var(--gold);
-  color:var(--text);
-  background:transparent;
-  text-decoration:none;
-  cursor:pointer;
-  font-size:13px;
-  transition:.2s;
-}
-
-.btn:hover {
-  background:var(--gold);
-  color:#111;
-}
-
-.muted-btn {border-color:var(--border);}
-
-section {
-  padding:76px 0;
-  border-bottom:1px solid #292723;
-}
-
-.intro {
-  max-width:700px;
-  margin-bottom:32px;
-}
-
-h2 {
-  font-size:clamp(30px,5vw,45px);
-  line-height:1.2;
-  font-weight:normal;
-  margin:8px 0 16px;
-}
-
-h3 {line-height:1.4;}
-
-.intro p,.muted {color:var(--muted);}
-
-.grid {
-  display:grid;
-  grid-template-columns:repeat(2,minmax(0,1fr));
-  gap:20px;
-}
-
-.card {
-  padding:26px;
-  border:1px solid var(--border);
-  background:var(--panel);
-  min-width:0;
-}
-
-.card h3 {
-  font-size:23px;
-  font-weight:normal;
-  margin:8px 0 12px;
-}
-
-.card p {color:var(--muted);}
-
-.featured {
-  background:linear-gradient(140deg,#211d17,#141414 75%);
-  border-color:#514333;
-}
-
-.poem {
-  padding:15px 0;
-  font-size:18px;
-  line-height:2;
-}
-
-.poem p {
-  margin:0;
-  color:var(--text);
-}
-
-.quote {
-  margin:28px 0;
-  padding-left:22px;
-  border-left:2px solid var(--gold);
-  font-size:clamp(21px,3vw,29px);
-  font-style:italic;
-  line-height:1.6;
-}
-
-.manifesto {
-  display:grid;
-  grid-template-columns:repeat(3,minmax(0,1fr));
-  gap:14px;
-  margin-top:28px;
-}
-
-.principle {
-  padding:22px;
-  border-top:1px solid var(--gold);
-  background:var(--panel);
-}
-
-.principle strong {
-  display:block;
-  color:var(--gold);
-  font-weight:normal;
-  font-size:23px;
-}
-
-.principle p {color:var(--muted);}
-
-.question-box {
-  padding:clamp(24px,5vw,45px);
-  background:var(--panel);
-  border:1px solid var(--border);
-}
-
-.question-box h3 {
-  font-size:clamp(25px,4vw,38px);
-  line-height:1.4;
-  font-weight:normal;
-}
-
-.answer {
-  padding-top:18px;
-  border-top:1px solid var(--border);
-  color:var(--muted);
-}
-
-[hidden] {display:none!important;}
-
-.video {
-  position:relative;
-  aspect-ratio:16/9;
-  background:#000;
-}
-
-.video iframe {
-  position:absolute;
-  width:100%;
-  height:100%;
-  inset:0;
-  border:0;
-}
-
-.episode-info {padding:22px;}
-
-.episode-info h3 {
-  font-weight:normal;
-  font-size:23px;
-}
-
-.episode-info p {color:var(--muted);}
-
-.journal-entry {
-  margin-top:20px;
-  padding:22px 0;
-  border-top:1px solid var(--border);
-}
-
-.journal-entry h3 {
-  font-weight:normal;
-  font-size:24px;
-}
-
-.contact-grid {
-  display:grid;
-  grid-template-columns:repeat(2,minmax(0,1fr));
-  gap:16px;
-}
-
-.contact-grid .card a {display:inline-block;}
-
-.sharebox {
-  margin-top:25px;
-  padding-top:20px;
-  border-top:1px solid var(--border);
-}
-
-.status {
-  min-height:1.6em;
-  color:var(--gold);
-  font:13px var(--sans);
-}
-
-footer {
-  padding:38px 0;
-  text-align:center;
-  color:var(--muted);
-  font-size:13px;
-}
-
-footer strong {
-  display:block;
-  color:var(--text);
-  font:13px var(--sans);
-  letter-spacing:2px;
-}
-
-.top-link {
-  display:inline-block;
-  margin-top:10px;
-  text-decoration:none;
-}
-
-@media(max-width:700px) {
-  .head {
-    align-items:flex-start;
-    flex-direction:column;
-  }
-
-  nav {gap:8px 14px;}
-
-  .hero {
-    min-height:68vh;
-    padding:75px 0;
-  }
-
-  .grid,.contact-grid,.manifesto {
-    grid-template-columns:1fr;
-  }
-
-  section {padding:56px 0;}
-
-  .card {padding:22px;}
-}
-
-@media(prefers-reduced-motion:reduce) {
-  html {scroll-behavior
+<div class="contact-grid">
+
+  <article class="card">
+    <h3>YouTube</h3>
+    <p>Watch the podcast and discover the conversations.</p>
+    <a class="btn"
+       href="https://www.youtube.com/watch?v=E5RfwKd8aOI"
+       target="_blank" rel="noopener noreferrer">
+       Visit YouTube →
+    </a>
+  </article>
+
+  <article class="card">
+    <h3>WhatsApp</h3>
+    <p>Reach out directly to continue the conversation.</p>
+    <a class="btn"
+       href="https://wa.me/254705711156"
+       target="_blank" rel="noopener noreferrer">
+       Connect on WhatsApp →
+    </a>
+  </article>
+
+  <article class="card">
+    <h3>Facebook</h3>
+    <p>Connect with Chris Irush on Facebook.</p>
+    <a class="btn"
+       href="https://www.facebook.com/search/top?q=Chris%20Irush"
+       target="_blank" rel="noopener noreferrer">
+       Visit Facebook →
+    </a>
+  </article>
+
+  <article class="card">
+    <h3>Email &amp; Collaborations</h3>
+    <p>For questions, collaborations and contributions.</p>
+    <a class="btn"
+       href="mailto:chrisirush32@gmail.com">
+       Send an Email →
+    </a>
+  </article>
+
+</div>
+```
